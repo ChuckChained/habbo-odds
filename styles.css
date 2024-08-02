@@ -1,0 +1,38 @@
+#player{
+    display: flex;
+    justify-content: start;
+    border-radius: 10px;
+}
+
+#dealer{
+    display: flex;
+    border-radius: 10px;
+}
+
+#rules{
+    display: flex;
+}
+
+#rules b {
+    margin-block-start: 0.5em;
+    margin-block-end:0.5em;
+    margin-right:0.5em;
+}
+
+#rules p {
+    margin-block-start: 0.5em;
+    margin-block-end:0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
