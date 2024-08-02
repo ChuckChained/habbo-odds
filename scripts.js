@@ -172,6 +172,9 @@ function run() {
         reset();
         if(gameList.options[gameList.selectedIndex].text == "13") {
         thirteen(rules.options[rules.selectedIndex].text);
+    } else {
+        alert("Please select Game 13");
+        return;
     }
     
  //   thirteen();
