@@ -54,6 +54,13 @@ function gameUpdate() {
     if(selectedGame === '6' || selectedGame === '13' || selectedGame === '13o' || selectedGame === '21') {
         console.log("6,13,21");
         document.getElementById("rules").innerHTML = '<b> What rules? </b><select id = "ruleList" onchange = ruleUpdate();><option> ---Choose Rules--- </option><option> Tie = Redo </option><option> Tie = Dealer </option><option> Tie = Redo + Ignore Tie Stats </option></select>';
+        if(selectedGame === '6') {
+            document.getElementById("stick").innerHTML = '<b> Stick on: </b><select id = "stickList";><option> ---Choose Number--- </option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>';
+        } else if (selectedGame === '13') {
+            document.getElementById("stick").innerHTML = '<b> Stick on: </b><select id = "stickList";><option> ---Choose Number--- </option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option>';
+        } else if (selectedGame === '21') {
+            document.getElementById("stick").innerHTML = '<b> Stick on: </b><select id = "stickList";><option> ---Choose Number--- </option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option>';
+        };
     } else if(selectedGame === 'Poker' || selectedGame === 'Tri High' || selectedGame === 'Tri Low' ) {
         document.getElementById("rules").innerHTML = "<b>Rules: </b><p> Tie = Dealer </p>"
 }
@@ -95,10 +102,90 @@ function rollDice() {
     return getRandomInt(6)+1
 }
 
-function thirteen(rules) {
+function six(rules) {
     playersHand.push(rollDice());
     playersHand.push(rollDice());
-    while(playersHand.reduce((partialSum, a) => partialSum + a, 0) < 11) {
+    while(playersHand.reduce((partialSum, a) => partialSum + a, 0) < 4) {
+        playersHand.push(rollDice());
+    }
+
+    const playersSum = playersHand.reduce((partialSum, a) => partialSum + a, 0);
+    console.log(playersHand);
+    console.log("Players Total: " + playersSum);
+    if(playersSum > 13) {
+        console.log("Player Bust");
+        console.log("Dealer Wins");
+        winner = "Dealer";
+        updateGameHistory(gameNumber, playersHand, playersSum, dealersHand, dealersHand, reduce((partialSum, a) => partialSum + a, 0), winner);
+        updateStats(playerWins, ties, dealerWins)
+    }
+}
+
+// function thirteen(rules) {
+//     playersHand.push(rollDice());
+//     playersHand.push(rollDice());
+//     while(playersHand.reduce((partialSum, a) => partialSum + a, 0) < 11) {
+//         playersHand.push(rollDice());
+//     }
+
+//     const playersSum = playersHand.reduce((partialSum, a) => partialSum + a, 0);
+// //    console.log(playersHand);
+//     console.log(playersHand);
+//     console.log("Players Total: " + playersSum);
+//     if(playersSum > 13) {
+//         console.log("Player Bust")
+//         console.log("Result: Dealer Wins")
+//         winner = "Dealer"
+//         updateGameHistory(gameNumber, playersHand, playersSum, dealersHand, dealersHand.reduce((partialSum, a) => partialSum + a, 0), winner);
+//         updateStats(playerWins, ties, dealerWins);
+//         gameNumber++;
+//         dealerWins++;
+//         //updateStats(playerWins, playerPercent, ties, tiePercent, dealerWins, dealerPercent);
+//         return;
+//     }
+//     dealersHand.push(rollDice());
+//     while(dealersHand.reduce((partialSum, a) => partialSum + a, 0) < playersSum) {
+//         dealersHand.push(rollDice());
+
+//         if(dealersHand.reduce((partialSum, a) => partialSum + a, 0) == playersSum) {
+//             if(rules == "Tie = Redo") {
+//                 console.log("Tie. Redo.");
+//                 winner = "Tie";
+//                 ties++;
+//             } else if (rules == "Tie = Dealer") {
+//                 console.log("Tie. Dealer Wins.");
+//                 winner = "Dealer";
+//                 dealerWins++;
+//             } else if (rules == "Tie = Redo + Ignore Tie Stats") {
+//                 console.log("Ignoring Tie");
+//                 gameNumber--;
+//                 winner = "Tie"
+//             }
+//         } else if (dealersHand.reduce((partialSum, a) => partialSum + a, 0) > 13) {
+//             console.log("Dealer Bust");
+//             console.log("Result: Player Wins");
+//             winner = "Player";
+//             playerWins++;
+//         } else if (dealersHand.reduce((partialSum, a) => partialSum + a, 0) > playersSum) {
+//             console.log("Player: " + playersSum + " Dealer: " + dealersHand.reduce((partialSum, a) => partialSum + a, 0))
+//             console.log("Result: Dealer Wins");
+//             winner = "Dealer";
+//             dealerWins++;
+//         }
+//     } 
+//     console.log(dealersHand)
+//     console.log("Dealers Total: " + dealersHand.reduce((partialSum, a) => partialSum + a, 0));
+//     updateGameHistory(gameNumber, playersHand, playersSum, dealersHand, dealersHand.reduce((partialSum, a) => partialSum + a, 0), winner);
+//     gameNumber++;
+//     updateStats(playerWins, ties, dealerWins);
+//     updatePercent();
+//     console.log("tie percent = " + tiePercent);
+// }
+
+function sixThirteenTwentyone(game, rules, stick) {
+    playersHand.push(rollDice());
+    playersHand.push(rollDice());
+    while(playersHand.reduce((partialSum, a) => partialSum + a, 0) < stick) {
         playersHand.push(rollDice());
     }
 
@@ -106,7 +193,7 @@ function thirteen(rules) {
 //    console.log(playersHand);
     console.log(playersHand);
     console.log("Players Total: " + playersSum);
-    if(playersSum > 13) {
+    if(playersSum > game) {
         console.log("Player Bust")
         console.log("Result: Dealer Wins")
         winner = "Dealer"
@@ -135,7 +222,7 @@ function thirteen(rules) {
                 gameNumber--;
                 winner = "Tie"
             }
-        } else if (dealersHand.reduce((partialSum, a) => partialSum + a, 0) > 13) {
+        } else if (dealersHand.reduce((partialSum, a) => partialSum + a, 0) > game) {
             console.log("Dealer Bust");
             console.log("Result: Player Wins");
             winner = "Player";
@@ -163,20 +250,26 @@ function reset() {
 function run() {
     var gameList = document.getElementById("gameList");
     var rules = document.getElementById("ruleList");
+    var stick = document.getElementById("stickList");
     var numberGamesInput = document.getElementById("numberGamesInput").value;
     console.log("It ran!");
 
     while(gameNumber - 1 < totalGames + numberGamesInput) {
         playersHand = [];
         dealersHand = [];
-        if(gameList.options[gameList.selectedIndex].text == "13") {
+        if(gameList.options[gameList.selectedIndex].text == "13" || gameList.options[gameList.selectedIndex].text == "6" || gameList.options[gameList.selectedIndex].text == "21") {
             if(rules.options[rules.selectedIndex].text == "---Choose Rules---") {
                 alert("Please select rules.");
                 return;
+            } else if(stick.options[stick.selectedIndex].text == "---Choose Number---") {
+                alert("Please select a minimum number to stick on");
+                return;
             }
-        thirteen(rules.options[rules.selectedIndex].text);
+        
+        sixThirteenTwentyone(gameList.options[gameList.selectedIndex].text, rules.options[rules.selectedIndex].text, stick.options[stick.selectedIndex].text);
+        //thirteen(rules.options[rules.selectedIndex].text);
     } else {
-        alert("Please select Game 13");
+        alert("Please select Game 6, 13 or 21");
         return;
     }
     
