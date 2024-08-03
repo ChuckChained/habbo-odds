@@ -111,6 +111,7 @@ function thirteen(rules) {
         console.log("Result: Dealer Wins")
         winner = "Dealer"
         updateGameHistory(gameNumber, playersHand, playersSum, dealersHand, dealersHand.reduce((partialSum, a) => partialSum + a, 0), winner);
+        updateStats(playerWins, ties, dealerWins);
         gameNumber++;
         dealerWins++;
         //updateStats(playerWins, playerPercent, ties, tiePercent, dealerWins, dealerPercent);
