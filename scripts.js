@@ -18,6 +18,7 @@ const gHistory = document.getElementById("history");
 
 
 const goBtn = document.querySelector("#goBtn");
+const resetBtn = document.querySelector("#resetBtn");
 var playersHand = [];
 var dealersHand = [];
 var gameHistory = [];
@@ -37,6 +38,11 @@ goBtn.addEventListener("click", function (e) {
     console.log(this);
     run();
 //    console.log(e.currentTarget === this);
+});
+
+resetBtn.addEventListener("click", function (e) {
+    console.log(this);
+    reset();
 });
 
 function gameUpdate() {
@@ -150,27 +156,23 @@ function thirteen(rules) {
 }
 
 function reset() {
-    playersHand = [];
-    dealersHand = [];
+
 }
 
 function run() {
     var gameList = document.getElementById("gameList");
     var rules = document.getElementById("ruleList");
     var numberGamesInput = document.getElementById("numberGamesInput").value;
-    console.log("Numberrr: " + numberGamesInput)
-//    reset();
     console.log("It ran!");
-    // for(let i = 0; i < 10; i++) {
-    //     reset();
-    //     if(gameList.options[gameList.selectedIndex].text == "13") {
-    //     thirteen(rules.options[rules.selectedIndex].text);
-    //     }
-    // }
 
     while(gameNumber - 1 < totalGames + numberGamesInput) {
-        reset();
+        playersHand = [];
+        dealersHand = [];
         if(gameList.options[gameList.selectedIndex].text == "13") {
+            if(rules.options[rules.selectedIndex].text == "---Choose Rules---") {
+                alert("Please select rules.");
+                return;
+            }
         thirteen(rules.options[rules.selectedIndex].text);
     } else {
         alert("Please select Game 13");
@@ -179,7 +181,20 @@ function run() {
     
  //   thirteen();
     }
+    updateRecentGame();
 //    totalGames = totalGames + numberGamesInput;
+}
+
+function updateRecentGame() {
+    const tableBody = document.getElementById('gameHistory').getElementsByTagName('tbody')[0];
+    const mostRecentGame = document.getElementById('gameHistory').getElementsByTagName('tbody')[0];
+//    const pHand = 
+    p1.innerText = mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[1].innerText;
+    d1.innerText = mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[3].innerText;
+
+    p2.innerText = " = " + mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[2].innerText;
+    d2.innerText = " = " + mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[4].innerText;
+
 }
 
 function updatePercent() {
