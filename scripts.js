@@ -1,7 +1,3 @@
-// Options
-// Number of Rolls to Simulate
-// Games
-// Game rules (tie = dealer, 13o)
 const p1 = document.querySelector("#p1");
 const p2 = document.querySelector("#p2");
 const p3 = document.querySelector("#p3");
@@ -35,6 +31,7 @@ var game;
 var totalGames = 0;
 /////// BUTTON EVENT LISTENERS //////
 goBtn.addEventListener("click", function (e) {
+    event.preventDefault();
     console.log(this);
     run();
 //    console.log(e.currentTarget === this);
@@ -418,7 +415,7 @@ function run() {
         poker();
     }
     else {
-        alert("Please select Game 6, 13 or 21");
+        alert("Please select a game");
         return;
     }
     
@@ -432,7 +429,6 @@ function run() {
 function updateRecentGame() {
     const tableBody = document.getElementById('gameHistory').getElementsByTagName('tbody')[0];
     const mostRecentGame = document.getElementById('gameHistory').getElementsByTagName('tbody')[0];
-//    const pHand = 
     p1.innerText = mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[1].innerText;
     d1.innerText = mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[3].innerText;
 

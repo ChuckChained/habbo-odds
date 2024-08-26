@@ -27,21 +27,43 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #B30000;
 }
 th, td {
     border: 1px solid #fff700;
     padding: 8px;
-    background-color: #B30000;
+    background-color: #70006e;
 }
 th {
-    background-color: #B30000;
+    background-color: #70006e;
     text-align: left;
 }
 
 #body {
-/*    background: #660011; */
     color: #fff700;
     background-image: url("bg2.jpeg");
+
 }
 
+#heading {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+#gameselect {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: 10px;
+    border: 2px solid #434343;
+    margin: 6px;
+}
+
+#hands {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: 10px;
+    border: 2px solid #434343;
+    margin: 6px;
+}

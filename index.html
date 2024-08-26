@@ -7,35 +7,44 @@
     </head>
 
     <body id="body">
-        <h1>Habbo Odds Simulator</h1>
-        <div></div>
-
-
-
-
-    <form>
-        <div id="gameselect" style="padding: 6px">
-            <b> Which game? </b>  
-            <select id = "gameList" onchange = "gameUpdate();" >  
-            <option> ---Choose Game--- </option>  
-            <option> 6 </option>  
-            <option> 13 </option>  
-            <option> 21 </option>  
-            <option> Poker </option>
-            <option> Tri Low </option> 
-            <option> Tri High </option>
-            </select>  
+        <div id="heading">
+            <h1>Habbo Odds Simulator</h1>
         </div>
-        <div id="rules" style="padding: 6px"></div>
-        <div id="stick" style="padding: 6px"></div>
-        <!-- <p> Your selected tutorial site is:   
-        <input type = "text" id = "favourite" size = "20" </p> -->
-        <p> How many games? <input type = "number" id="numberGamesInput" value="1" size = "1"></p>
-        </form>  
         
-        <button id="goBtn">Go</button>
-        <button id="resetBtn">Reset</button>
+    <div id="gameselect">
+        
+        <div>
+            <img src="img1.png" style="height:160px; width:210px">
+        </div>
+    <form>
+        <div>
 
+            <div>
+            <div style="padding: 6px">
+                <b> Which game? </b>  
+                <select id = "gameList" onchange = "gameUpdate();" >  
+                <option> ---Choose Game--- </option>  
+                <option> 6 </option>  
+                <option> 13 </option>  
+                <option> 21 </option>  
+                <option> Poker </option>
+                <option> Tri Low </option> 
+                <option> Tri High </option>
+                </select> 
+            </div>
+            <div id="rules" style="padding: 6px"></div>
+            <div id="stick" style="padding: 6px"></div>
+            <!-- <p> Your selected tutorial site is:   
+            <input type = "text" id = "favourite" size = "20" </p> -->
+            <p> How many games? <input type = "number" id="numberGamesInput" value="1" size = "1"></p>
+            </form> 
+            
+            <button id="goBtn">Go</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+        </div>
+    </div>
+    <div id="hands">
         <div style="display:flex"; >
             <div style="padding: 10px;">
                 <h2>Players Hand</h2>
@@ -59,7 +68,7 @@
                 </div>
             </div>
         </div>
-       
+    </div>
         <div>
             <h2>Overall Stats</h2>
 
