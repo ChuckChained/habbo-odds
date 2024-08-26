@@ -3,28 +3,27 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="styles.css">
-        <title>Dice Odds Simulator</title>
+        <title>Habbo Odds Simulator</title>
     </head>
 
-    <body>
-        <h1>Dice Odds Simulator</h1>
+    <body id="body">
+        <h1>Habbo Odds Simulator</h1>
         <div></div>
 
 
 
 
     <form>
-        <div style="padding: 6px">
+        <div id="gameselect" style="padding: 6px">
             <b> Which game? </b>  
             <select id = "gameList" onchange = "gameUpdate();" >  
             <option> ---Choose Game--- </option>  
             <option> 6 </option>  
             <option> 13 </option>  
-            <option> 13o </option>  
             <option> 21 </option>  
             <option> Poker </option>
-            <option> Tri High </option> 
             <option> Tri Low </option> 
+            <option> Tri High </option>
             </select>  
         </div>
         <div id="rules" style="padding: 6px"></div>
@@ -35,7 +34,7 @@
         </form>  
         
         <button id="goBtn">Go</button>
-        <!-- <button id="resetBtn">Reset</button> -->
+        <button id="resetBtn">Reset</button>
 
         <div style="display:flex"; >
             <div style="padding: 10px;">

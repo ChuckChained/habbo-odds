@@ -27,12 +27,21 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    background-color: #B30000;
 }
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #fff700;
     padding: 8px;
+    background-color: #B30000;
 }
 th {
-    background-color: #f2f2f2;
+    background-color: #B30000;
     text-align: left;
 }
+
+#body {
+/*    background: #660011; */
+    color: #fff700;
+    background-image: url("bg2.jpeg");
+}
+
