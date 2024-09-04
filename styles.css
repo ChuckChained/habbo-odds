@@ -1,12 +1,13 @@
-#player{
+.player{
     display: flex;
-    justify-content: start;
     border-radius: 10px;
+    justify-content: space-between;
 }
 
-#dealer{
+.dealer{
     display: flex;
     border-radius: 10px;
+    justify-content: space-around;
 }
 
 #rules{
@@ -31,17 +32,17 @@ table {
 th, td {
     border: 1px solid #fff700;
     padding: 8px;
-    background-color: #70006e;
+    background-color: #2b2b2b;
 }
 th {
-    background-color: #70006e;
+    background-color: #2b2b2b;
     text-align: left;
 }
 
 #body {
     color: #fff700;
     background-image: url("bg2.jpeg");
-
+    font-family: "Lucida Console", Monospace;
 }
 
 #heading {

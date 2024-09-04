@@ -1,14 +1,16 @@
-const p1 = document.querySelector("#p1");
-const p2 = document.querySelector("#p2");
-const p3 = document.querySelector("#p3");
-const p4 = document.querySelector("#p4");
-const p5 = document.querySelector("#p5");
+const p1 = document.getElementById("p1");
+const p2 = document.getElementById("p2");
+const p3 = document.getElementById("p3");
+const p4 = document.getElementById("p4");
+const p5 = document.getElementById("p5");
+const p6 = document.getElementById("p6");
 
-const d1 = document.querySelector("#d1");
-const d2 = document.querySelector("#d2");
-const d3 = document.querySelector("#d3");
-const d4 = document.querySelector("#d4");
-const d5 = document.querySelector("#d5");
+const d1 = document.getElementById("d1");
+const d2 = document.getElementById("d2");
+const d3 = document.getElementById("d3");
+const d4 = document.getElementById("d4");
+const d5 = document.getElementById("d5");
+const d6 = document.getElementById("d6");
 
 const gHistory = document.getElementById("history");
 
@@ -120,6 +122,8 @@ function poker() {
     updateStats(playerWins, ties, dealerWins);
     updatePercent();
     gameNumber++;
+    displayDice(pHandSorted,"P");
+    displayDice(dHandSorted,"D");
 }
 
 function pokerHandCheck(hand) {
@@ -295,8 +299,10 @@ function tri(rule) {
     }
     updateGameHistory(gameNumber, playersHand, playersSum, dealersHand, dealersSum, winner);
     updateStats(playerWins, ties, dealerWins);
-    gameNumber++;
     updatePercent();
+    gameNumber++;
+    displayDice(playersHand,"P");
+    displayDice(dealersHand,"D");
 };
 
 
@@ -316,9 +322,12 @@ function sixThirteenTwentyone(game, rules, stick) {
         console.log("Result: Dealer Wins")
         winner = "Dealer"
         updateGameHistory(gameNumber, playersHand, playersSum, dealersHand, dealersHand.reduce((partialSum, a) => partialSum + a, 0), winner);
-        updateStats(playerWins, ties, dealerWins);
-        gameNumber++;
         dealerWins++;
+        updateStats(playerWins, ties, dealerWins);
+        updatePercent();
+        gameNumber++;
+        displayDice(playersHand,"P");
+        displayDice(dealersHand,"D");
         //updateStats(playerWins, playerPercent, ties, tiePercent, dealerWins, dealerPercent);
         return;
     }
@@ -355,10 +364,12 @@ function sixThirteenTwentyone(game, rules, stick) {
     console.log(dealersHand)
     console.log("Dealers Total: " + dealersHand.reduce((partialSum, a) => partialSum + a, 0));
     updateGameHistory(gameNumber, playersHand, playersSum, dealersHand, dealersHand.reduce((partialSum, a) => partialSum + a, 0), winner);
-    gameNumber++;
     updateStats(playerWins, ties, dealerWins);
     updatePercent();
+    gameNumber++;
     console.log("tie percent = " + tiePercent);
+    displayDice(playersHand,"P");
+    displayDice(dealersHand,"D");
 }
 
 function reset() {
@@ -393,6 +404,8 @@ function run() {
     console.log("It ran!");
 
     while(gameNumber - 1 < totalGames) {
+        p1.innerHTML = '';
+        d1.innerHTML = '';
         playersHand = [];
         dealersHand = [];
         if(gameList.options[gameList.selectedIndex].text == "13" || gameList.options[gameList.selectedIndex].text == "6" || gameList.options[gameList.selectedIndex].text == "21") {
@@ -429,18 +442,18 @@ function run() {
 function updateRecentGame() {
     const tableBody = document.getElementById('gameHistory').getElementsByTagName('tbody')[0];
     const mostRecentGame = document.getElementById('gameHistory').getElementsByTagName('tbody')[0];
-    p1.innerText = mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[1].innerText;
-    d1.innerText = mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[3].innerText;
+//    p1.innerText = mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[1].innerText;
+//    d1.innerText = mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[3].innerText;
 
-    p2.innerText = " = " + mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[2].innerText;
-    d2.innerText = " = " + mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[4].innerText;
+    p6.innerText = " = " + mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[2].innerText;
+    d6.innerText = " = " + mostRecentGame.getElementsByTagName("tr")[0].getElementsByTagName("td")[4].innerText;
 
 }
 
 function updatePercent() {
-    document.getElementById("pp").innerHTML = Math.round((playerWins / (gameNumber - 1) * 100) * 100) / 100;
-    document.getElementById("tp").innerHTML = Math.round((ties / (gameNumber - 1) * 100) * 100) / 100;
-    document.getElementById("dp").innerHTML = Math.round((dealerWins / (gameNumber - 1) * 100) * 100) / 100;
+    document.getElementById("pp").innerHTML = Math.round((playerWins / gameNumber * 100) * 100) / 100;
+    document.getElementById("tp").innerHTML = Math.round((ties / gameNumber * 100) * 100) / 100;
+    document.getElementById("dp").innerHTML = Math.round((dealerWins / gameNumber * 100) * 100) / 100;
 }
 
 function updateStats(pWins, ties, dW) {
@@ -467,7 +480,14 @@ function updateGameHistory(gameno, pHand, pTotal, dHand, dTotal, result) {
 
     const playerTotalCell = document.createElement('td');
     playerTotalCell.textContent = pTotal;
-    newRow.appendChild(playerTotalCell);
+
+    if(result == "Dealer") {
+        newRow.appendChild(playerTotalCell).style["color"] = "red";
+    } else if (result == "Player") {
+        newRow.appendChild(playerTotalCell).style["color"] = "lime";
+    } else {
+        newRow.appendChild(playerTotalCell).style["color"] = "orange";
+    };
 
     const dealerHandCell = document.createElement('td');
     dealerHandCell.textContent = dHand;
@@ -475,7 +495,14 @@ function updateGameHistory(gameno, pHand, pTotal, dHand, dTotal, result) {
 
     const dealerTotalCell = document.createElement('td');
     dealerTotalCell.textContent = dTotal;
-    newRow.appendChild(dealerTotalCell);
+
+    if(result == "Dealer") {
+        newRow.appendChild(dealerTotalCell).style["color"] = "lime";
+    } else if (result == "Player") {
+        newRow.appendChild(dealerTotalCell).style["color"] = "red";
+    } else {
+        newRow.appendChild(dealerTotalCell).style["color"] = "orange";
+    };
 
     const winnerCell = document.createElement('td');
     winnerCell.textContent = result;
@@ -485,12 +512,40 @@ function updateGameHistory(gameno, pHand, pTotal, dHand, dTotal, result) {
     tableBody.insertBefore(newRow, tableBody.firstChild);
 };
 
-function myFunction() {
-    var x = document.getElementById("frm1");
-    var text = "";
-    var i;
-    for (i = 0; i < x.length ;i++) {
-      text += x.elements[i].value + "<br>";
+function displayDice(hand, pord) {
+//    newImg = document.createElement('img');
+//    p5.src="6.png";
+    const ps = [p1,p2,p3,p4,p5];
+    const ds = [d1,d2,d3,d4,d5];
+    const all = [[ps], [ds]];
+    const imgs = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
+    let who = 2;
+
+if(pord == "P") { 
+    who == 0 
+    } else {
+        who == 1
+    } 
+
+    for(let i = 0; i < hand.length + 1; i++) {
+//        for(let j = 0; j < 5; j++) {
+            for(let k = 6; k > 0; k--) {
+                if(pord == "P" && hand[i] == k) {
+                    el = document.createElement('img');
+                    el.src=k+".png";
+                    el.setAttribute("id", "p"+i);
+                    el.style="height:30px; width:30px";
+                    document.getElementById("p1").appendChild(el);
+                    //ps[i].src=imgs[k-1].style.visibility = "hidden";
+                } else if (pord == "D" && hand[i] == k) {
+                    el = document.createElement('img');
+                    el.src=k+".png";
+                    el.setAttribute("id", "d"+i);
+                    el.style="height:30px; width:30px";
+                    document.getElementById("d1").appendChild(el);
+                    //ds[i].src=imgs[k-1].style.visibility = "hidden";
+                }
+//            }
+        } 
     }
-    document.getElementById("demo").innerHTML = text;
-  }
+}
